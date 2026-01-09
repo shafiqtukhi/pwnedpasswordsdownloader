@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Collections.Concurrent;
@@ -31,7 +31,7 @@ namespace HaveIBeenPwned.PwnedPasswords
             }
         }
 
-        internal static async Task CopyFrom<T>(this SafeFileHandle handle, T stream, int offset = 0) where T : Stream
+        internal static async Task CopyFrom<C>(this SafeFileHandle handle, C stream, int offset = 0) where T : Stream
         {
             Pipe pipe = GetPipe();
             Task copyTask = stream.CopyToAsync(pipe.Writer).ContinueWith(CompleteWriter, pipe.Writer).Unwrap();

@@ -1,4 +1,4 @@
-﻿using System.Buffers.Binary;
+using System.Buffers.Binary;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
@@ -273,7 +273,7 @@ internal sealed class PwnedPasswordsDownloader : AsyncCommand<PwnedPasswordsDown
             await using FileStream file = File.Open($"{settings.OutputFile}.txt", new FileStreamOptions { Access = FileAccess.Write, BufferSize = 32767, Mode = FileMode.Create, Options = FileOptions.Asynchronous, Share = FileShare.None });
             await using StreamWriter writer = new(file);
             Task producerTask = StartDownloads(downloadTasks.Writer, settings.FetchNtlm);
-            await foreach (Task<Stream> item in downloadTasks.Reader.ReadAllAsync().ConfigureAwait(false))
+            await foreach (Task<Stream> item in downloadTasks.Reader.ReadAllAsync().ConfigureAwait(true))
             {
                 string prefix = GetHashRange(_statistics.HashesDownloaded++);
                 await using Stream inputStream = await item.ConfigureAwait(false);
